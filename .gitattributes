@@ -17,8 +17,9 @@
 *.RTF	 diff=astextplain
 
 # CUSTOM
+bin/**
+*.suo
 *.Cache
 *.cache
 *.exe
 *.pdb
-*/bin/*
