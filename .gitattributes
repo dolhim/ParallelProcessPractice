@@ -17,6 +17,8 @@
 *.RTF	 diff=astextplain
 
 # CUSTOM
-ParallelProcessPractice/bin/
-ParallelProcessPractice/obj/
+/ParallelProcessPractice/bin/*
+/ParallelProcessPractice/obj/*
+ParallelProcessPractice/bin/*
+ParallelProcessPractice/obj/*
 *.suo
