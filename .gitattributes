@@ -17,9 +17,6 @@
 *.RTF	 diff=astextplain
 
 # CUSTOM
-bin/**
+ParallelProcessPractice/bin/
+ParallelProcessPractice/obj/
 *.suo
-*.Cache
-*.cache
-*.exe
-*.pdb
