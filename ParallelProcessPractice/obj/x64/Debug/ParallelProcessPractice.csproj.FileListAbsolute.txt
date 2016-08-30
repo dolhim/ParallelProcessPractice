@@ -1,0 +1,9 @@
+D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\bin\x64\Debug\ParallelProcessPractice.exe.config
+D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\bin\x64\Debug\ParallelProcessPractice.exe
+D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\bin\x64\Debug\ParallelProcessPractice.pdb
+D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\obj\x64\Debug\ParallelProcessPractice.Form1.resources
+D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\obj\x64\Debug\ParallelProcessPractice.Properties.Resources.resources
+D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\obj\x64\Debug\ParallelProcessPractice.csproj.GenerateResource.Cache
+D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\obj\x64\Debug\ParallelProcessPractice.exe
+D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\obj\x64\Debug\ParallelProcessPractice.pdb
+D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\obj\x64\Debug\ParallelProcessPractice.csprojResolveAssemblyReference.cache
