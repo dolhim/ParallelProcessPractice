@@ -15,3 +15,10 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+# CUSTOM
+*.Cache
+*.cache
+*.exe
+*.pdb
+*/bin/*
