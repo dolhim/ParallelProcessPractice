@@ -83,9 +83,8 @@ namespace BitmapChipMaker
             byte[] buff = new byte[w * 3];
 
             // 영상 읽어오기
-            var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read,
-                                    bufferSize: imgall.Length, useAsync: false);
-
+            using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read,
+                                    bufferSize: imgall.Length, useAsync: false))
             using (var img = (Bitmap)Image.FromStream(fs))
             {
 #if USEPFOR 
@@ -713,16 +712,26 @@ namespace BitmapChipMaker
         /// <param name="chipW">저장 너비</param>
         /// <param name="chipH">저장 높이</param>
         /// <returns>성공 여부</returns>
-        public static bool SaveChipRGB(string srcPath, int srcW, int srcH,
+        public static bool SaveChipRGB(string srcPath, int srcW, int srcH, byte[] dstArr,
                                        string dstDir, int chipX, int chipY, int chipW, int chipH)
         { 
-            System.Diagnostics.Stopwatch sw1 = System.Diagnostics.Stopwatch.StartNew();
+            var sw1 = System.Diagnostics.Stopwatch.StartNew();
+
             var bmpArr = BitmapBuffer.bitmapToRGBBuffer(srcPath, chipX, chipY, chipW, chipH);
             System.Diagnostics.Debug.WriteLine(chipY + "bitmapToRGBBuffer : " + sw1.ElapsedMilliseconds);
-            var chip = BitmapBuffer.GetBitmapRGB(bmpArr, chipW, chipH);
-            System.Diagnostics.Debug.WriteLine(chipY + "GetBitmapRGB : " + sw1.ElapsedMilliseconds);
-            chip.Save(dstDir, ImageFormat.Tiff);
-            chip.Dispose();
+
+            /// 다수의 스레드 내에서 한 배열에 쓰기
+            Array.Copy(bmpArr, 0, dstArr, (chipX + (chipW * chipY)) * 3, bmpArr.Length);
+
+            // 조각이미지 저장
+            if (true)
+            { 
+                var chip = BitmapBuffer.GetBitmapRGB(bmpArr, chipW, chipH);
+                System.Diagnostics.Debug.WriteLine(chipY + "GetBitmapRGB : " + sw1.ElapsedMilliseconds);
+                chip.Save(dstDir, ImageFormat.Tiff);
+                chip.Dispose();
+            }
+
             System.Diagnostics.Debug.WriteLine(chipY + "Save : " + sw1.ElapsedMilliseconds);
             return true;
         }
