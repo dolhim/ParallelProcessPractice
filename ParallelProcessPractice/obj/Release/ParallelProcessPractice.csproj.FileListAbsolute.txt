@@ -1,8 +1,0 @@
-D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\bin\Release\ParallelProcessPractice.exe.config
-D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\bin\Release\ParallelProcessPractice.exe
-D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\bin\Release\ParallelProcessPractice.pdb
-D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\obj\Release\ParallelProcessPractice.Form1.resources
-D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\obj\Release\ParallelProcessPractice.Properties.Resources.resources
-D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\obj\Release\ParallelProcessPractice.csproj.GenerateResource.Cache
-D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\obj\Release\ParallelProcessPractice.exe
-D:\Project-drlees\ParallelProcessPractice\ParallelProcessPractice\obj\Release\ParallelProcessPractice.pdb
