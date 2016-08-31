@@ -15,13 +15,3 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
-
-# CUSTOM
-ParallelProcessPractice/bin
-ParallelProcessPractice/bin/Debug/
-ParallelProcessPractice/bin/Release/
-ParallelProcessPractice/bin/x64/Debug/
-ParallelProcessPractice/obj/Debug/
-ParallelProcessPractice/obj/Release/
-ParallelProcessPractice/obj/x64/Debug/
-*.suo
