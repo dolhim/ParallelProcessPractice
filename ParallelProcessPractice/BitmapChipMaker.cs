@@ -712,24 +712,28 @@ namespace BitmapChipMaker
         /// <param name="chipW">저장 너비</param>
         /// <param name="chipH">저장 높이</param>
         /// <returns>성공 여부</returns>
-        public static bool SaveChipRGB(string srcPath, int srcW, int srcH, byte[] dstArr,
+        public static bool SaveChipRGB(string srcPath, int srcW, int srcH, List<byte> dstList,
                                        string dstDir, int chipX, int chipY, int chipW, int chipH)
         { 
             var sw1 = System.Diagnostics.Stopwatch.StartNew();
 
-            var bmpArr = BitmapBuffer.bitmapToRGBBuffer(srcPath, chipX, chipY, chipW, chipH);
-            System.Diagnostics.Debug.WriteLine(chipY + "bitmapToRGBBuffer : " + sw1.ElapsedMilliseconds);
+            lock (dstList)
+            {
+                var bmpArr = BitmapBuffer.bitmapToRGBBuffer(srcPath, chipX, chipY, chipW, chipH);
+                System.Diagnostics.Debug.WriteLine(chipY + "bitmapToRGBBuffer : " + sw1.ElapsedMilliseconds);
 
-            /// 다수의 스레드 내에서 한 배열에 쓰기
-            Array.Copy(bmpArr, 0, dstArr, (chipX + (chipW * chipY)) * 3, bmpArr.Length);
+                /// 다수의 스레드 내에서 한 리스트에 쓰기
+                for (var b = 0; b != bmpArr.Length; ++b)
+                    dstList.Add(bmpArr[b]);
 
-            // 조각이미지 저장
-            if (true)
-            { 
-                var chip = BitmapBuffer.GetBitmapRGB(bmpArr, chipW, chipH);
-                System.Diagnostics.Debug.WriteLine(chipY + "GetBitmapRGB : " + sw1.ElapsedMilliseconds);
-                chip.Save(dstDir, ImageFormat.Tiff);
-                chip.Dispose();
+                // 조각이미지 저장
+                if (true)
+                {
+                    var chip = BitmapBuffer.GetBitmapRGB(bmpArr, chipW, chipH);
+                    System.Diagnostics.Debug.WriteLine(chipY + "GetBitmapRGB : " + sw1.ElapsedMilliseconds);
+                    chip.Save(dstDir, ImageFormat.Tiff);
+                    chip.Dispose();
+                }
             }
 
             System.Diagnostics.Debug.WriteLine(chipY + "Save : " + sw1.ElapsedMilliseconds);

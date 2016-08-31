@@ -25,7 +25,7 @@ namespace ParallelProcessPractice
         int bmpW, bmpH;
 
         // 비동기 처리시 사용될 배열
-        byte[] target;
+        List<byte> target;
 
         public Form1()
         {
@@ -69,7 +69,9 @@ namespace ParallelProcessPractice
                 this.bmpH = bmp.Height;
             }
 
-            this.target = new byte[bmpH * bmpW * 3];
+            // 리스트 초기화
+            this.target = new List<byte>();
+
             textBox1.AppendText(string.Format("---------------\r\n" +
                                               "파일명 : {0} \r\n" +
                                               "크기 : ({1}, {2})px \r\n" +
@@ -84,7 +86,7 @@ namespace ParallelProcessPractice
             var dstPath = Path.Combine(Path.GetDirectoryName(path),
                          Path.GetFileNameWithoutExtension(path) +
                          "_all" + Path.GetExtension(path));
-            var dstRGB = BitmapBuffer.GetBitmapRGB(target, bmpW, bmpH);
+            var dstRGB = BitmapBuffer.GetBitmapRGB(target.ToArray(), bmpW, bmpH);
             dstRGB.Save(dstPath, System.Drawing.Imaging.ImageFormat.Tiff);
             dstRGB.Dispose();
         }
@@ -119,18 +121,18 @@ namespace ParallelProcessPractice
         }
 
         private async Task<bool> Split(int n, string src, int srcW, int srcH,
-                                      byte[] dstArr, string dst, Rectangle rect, bool parallel)
+                                      List<byte> dstList, string dst, Rectangle rect, bool parallel)
         {
             bool ret = false;
             Stopwatch sw = Stopwatch.StartNew();
 
             if (parallel)
             {
-                ret = await SplitImageAsync(n, src, srcW, srcH, dstArr, dst, rect);
+                ret = await SplitImageAsync(n, src, srcW, srcH, dstList, dst, rect);
             }
             else
             {
-                ret = SplitImage(n, src, srcW, srcH, dstArr, dst, rect);
+                ret = SplitImage(n, src, srcW, srcH, dstList, dst, rect);
             }
             sw.Stop();
 
@@ -141,21 +143,21 @@ namespace ParallelProcessPractice
         }
 
         private async Task<bool> SplitImageAsync(int n, string src, int srcW, int srcH,
-                                         byte[] dstArr, string dst, Rectangle rect)
+                                         List<byte> dstList, string dst, Rectangle rect)
         {
             CancellationTokenSource cts = new CancellationTokenSource();
 
             bool runResult = await Task.Run(() => 
-                BitmapChipMaker.ChipMaker.SaveChipRGB(src, srcW, srcH, dstArr,
+                BitmapChipMaker.ChipMaker.SaveChipRGB(src, srcW, srcH, dstList,
                 dst, rect.X, rect.Y, rect.Width, rect.Height), cts.Token);
 
             return runResult;
         }
 
         private bool SplitImage(int n, string src, int srcW, int srcH,
-                        byte[] dstArr, string dst, Rectangle rect)
+                        List<byte> dstList, string dst, Rectangle rect)
         {
-            BitmapChipMaker.ChipMaker.SaveChipRGB(src, srcW, srcH, dstArr,
+            BitmapChipMaker.ChipMaker.SaveChipRGB(src, srcW, srcH, dstList,
                 dst, rect.X, rect.Y, rect.Width, rect.Height);
             
             return true;
